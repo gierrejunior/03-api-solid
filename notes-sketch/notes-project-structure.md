@@ -341,3 +341,14 @@ Isso irá parar os contêineres associados aos serviços, mas não irá removê-
 Para retomar a execução dos serviços após tê-los parado, você pode usar o comando:
 
     docker-compose start
+
+## 16° STEP
+
+criar os models no schema.prisma
+e ap´so criado, lembrar de migra-los para o banco de dados
+
+    npx prisma migrate dev -> comparar o schema.prisma com o banco de dados e atualiza o banco de dados
+
+quando usado em produção, utilizasse o comando:
+
+    npx prisma migrate deploy -> não compara o schema.prisma com o banco de dados, apenas atualiza o banco de dados

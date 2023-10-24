@@ -2,8 +2,10 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
+
 
 datasource db {
   provider = "postgresql"
@@ -17,5 +19,38 @@ model User {
   id String @id @default(uuid())
   name String
   email String @unique
+  password_hash String
+  created_at DateTime @default(now())
+
+  CheckIns CheckIn[] // checkin é um array de checkins, uma relação 1 para muitos, nesse caso usa camelCase
+
   @@map("users") //com esse comando, em vez da tabela ser criado com o nome User, ela sera criada com o nome users
+}
+
+model CheckIn {
+  id String @id @default(uuid())
+  created_at DateTime @default(now())
+  is_validated DateTime? // Se tiver data é pq foi validado, e ainda tem a data de quando foi validado
+
+  user User @relation(fields: [user_id], references: [id]) // relacionamento com a tabela user
+  user_id String
+
+  gyn Gym @relation(fields: [gym_id], references: [id]) // relacionamento com a tabela gym
+  gym_id String
+
+  @@map("check_ins")
+}
+
+
+model Gym {
+  id String @id @default(uuid())
+  title String
+  description String?
+  phone String?
+  latitute Decimal
+  longitude Decimal
+
+  CheckIns CheckIn[]
+
+  @@map("gyms")
 }
