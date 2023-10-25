@@ -73,7 +73,8 @@
         "christian-kohler.npm-intellisense",
         "christian-kohler.path-intellisense",
         "prisma.prisma",
-        "standard.vscode-standard"
+        "standard.vscode-standard",
+        "streetsidesoftware.code-spell-checker"
       ]
     }
 
