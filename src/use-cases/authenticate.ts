@@ -12,15 +12,15 @@ interface AuthenticateUseCaseResponse {
   user: User
 }
 
-export class AuthentucateUseCase {
-  constructor(private usersRepository: UsersRepository,) {}
+export class AuthenticateUseCase {
+  constructor(private usersRepository: UsersRepository) {}
 
   async execute({
     email,
     password,
-  }: IAuthenticateUseCaseRequest): Promise < AuthenticateUseCaseResponse > {
-    //buscar usuario pelo email no banco
-    //comparar se a senha salva no banco é igual a senha que o usuario esta tentando logar
+  }: IAuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
+    // buscar usuario pelo email no banco
+    // comparar se a senha salva no banco é igual a senha que o usuario esta tentando logar
 
     const user = await this.usersRepository.findByEmail(email)
 
@@ -28,7 +28,7 @@ export class AuthentucateUseCase {
       throw new InvalidCredentialsError()
     }
 
-    //começar boolean com "is", "has", "does", "should" ou "can" verbos q trazem sentido de sim ou não
+    // começar boolean com "is", "has", "does", "should" ou "can" verbos q trazem sentido de sim ou não
 
     const doesPasswordMatches = await compare(password, user.password_hash)
 
